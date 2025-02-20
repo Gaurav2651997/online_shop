@@ -23,15 +23,20 @@ So in order to understand the approach for dockerizing any application, it is al
 So Lets start with running the application locally. Below are the steps involved ⬇
 
 1️⃣ cd to online_shop directory.
+
 2️⃣ install the npm packge with coammand -> sudo apt-get install npm -y
+
 2️⃣ If you want to verify if it has successfully installed or want to know it's where it is located then you can do so by the below commmand.
 
 ubuntu@ip-172-31-92-158:~/Hackathon/online_shop$ whereis npm
 npm: /usr/bin/npm /usr/share/npm /usr/share/man/man1/npm.1.gz
 
 3️⃣ Now Run -> npm install (This command is used to install all the dependencies (libraries and packages) your project needs to run)
+
 4️⃣ After this run -> npm build (This command is used to prepare your app for production, meaning making it ready for deployment).
+
 5️⃣ The above 2 commands will generate node_modules, package-lock.json and dist directories.
+
 6️⃣ Now Run -> npm run dev (This will run your application)
 
 ubuntu@ip-172-31-92-158:~/Hackathon/online_shop$ npm run dev
