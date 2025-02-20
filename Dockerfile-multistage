@@ -1,0 +1,29 @@
+#Stage 1
+#Declaring the base image
+FROM node:18-alpine AS builder
+
+#Declaring the Workdir
+WORKDIR /app
+
+#Copying the project files
+COPY . .
+
+#Creating the build
+RUN npm install && npm run build
+
+#Stage 2
+#Using the distroless image 
+FROM gcr.io/distroless/nodejs18-debian12
+
+#Declaring the Workdir
+WORKDIR /app 
+
+#Copying the dependencies from the Stage 1
+COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/node_modules /app/node_modules
+
+#Exposing the Port
+EXPOSE 5173
+
+#Run the application
+CMD ["./node_modules/.bin/serve","-s","dist","-l","5173"]
