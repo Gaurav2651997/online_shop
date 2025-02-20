@@ -19,6 +19,7 @@ In this we will try to convert the Node.js application to a Docker Containerized
 So in order to understand the approach for dockerizing any application, it is always a best idea to run it first in our local environment.💻 
 
 ---
+Part 1 (Running the Image Locally)
 
 So Lets start with running the application locally. Below are the steps involved ⬇
 
@@ -60,4 +61,67 @@ More info: https://sass-lang.com/d/legacy-js-api
 
 ---
 
+Part 2 (Running the application inside the Docker Container)
+
+Since we have successfully ran our application locally, nnow it's time to dockerize our application.🚀
+
+Creating a Docker file for the application - We need to follow the same steps which we followed while running it Locally
+
+1️⃣ Declaring the base image -> Here we choose node:18-alpine
+
+2️⃣ Declaring the Workdir -> In our case it's /app
+
+3️⃣ Copying all the application files require to run our application -> COPY . .  (Here 2st dot resembles Source which is our local machine and 2nd dot resembles destination which is our conatiner)
+
+4️⃣ Creating the build and installing all the necessary dependencies -> npm install && npm run build
+
+5️⃣ Creating a environment variable for Port no -> ENV PORT=3000 
+
+6️⃣ Exposing the conatiner Port outside inorder to make it accessible -> EXPOSE 3000 
+
+7️⃣ Run the application. CMD needs all the necessary parameters to run the application inside the container. Hence this is the command. -> CMD ["npm","run","dev","--","--host","0.0.0.0","--port","3000"]
+
+Below is the Docker file -
+
+Dockerfile
+
+#Declaring the base image
+FROM node:18-alpine
+
+#Declaring the Workdir
+WORKDIR /app
+
+#Copying the project files
+COPY . .
+
+#Creating the build
+RUN npm install && npm run build
+
+#Creating a environment variable
+ENV PORT=3000
+
+#Exposing the Port
+EXPOSE 3000
+
+#Run the application
+CMD ["npm","run","dev","--","--host","0.0.0.0","--port","3000"]
+
+8️⃣ Now build the image with this command -> docker build -t online_shop:latest .
+
+9️⃣ Your docker image will be created. To check run -> docker iamges
+
+ubuntu@ip-172-31-92-158:~/Hackathon/online_shop$ docker images
+REPOSITORY    TAG         IMAGE ID       CREATED          SIZE
+online_shop   latest      e3e3636ddaa6   11 minutes ago   241MB
+node          18-alpine   70649fe1a0d7   9 hours ago      127MB
+
+🔟 Now run the conatiner with this command -> docker run -p 3000:3000 online_shop:latest (Use -d if you want to run it in detached mode i.e docker run -d -p 3000:3000 online_shop:latest )
+
+Open the port 3000 on your AWS Security Group -> Edit the inbound rules and add the 3000 port. Now Copy the public i/p and try accesing your application on port 3000
+
+![image](https://github.com/user-attachments/assets/881c48d4-d903-40cf-8884-e8b274c6ff85)
+
+
+
+---
 
