@@ -184,6 +184,40 @@ dist -> is the folder that contains the built (compiled) version of your app
 -l -> is an option for "listen". It tells the serve command which port to listen on for incoming requests
 5173 -> is the port number where your app will be available.
 
+Below is the multistage Docker file
+
+ubuntu@ip-172-31-92-158:~/Hackathon/online_shop$ cat Dockerfile-multistage
+#Stage 1
+#Declaring the base image
+FROM node:18-alpine AS builder
+
+#Declaring the Workdir
+WORKDIR /app
+
+#Copying the project files
+COPY . .
+
+#Creating the build
+RUN npm install && npm run build
+
+#Stage 2
+#Using the distroless image
+FROM gcr.io/distroless/nodejs18-debian12
+
+#Declaring the Workdir
+WORKDIR /app
+
+#Copying the dependencies from the Stage 1
+COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/node_modules /app/node_modules
+
+#Exposing the Port
+EXPOSE 5173
+
+#Run the application
+CMD ["./node_modules/.bin/serve","-s","dist","-l","5173"]
+
+
 4️⃣ We also need to update package.json file. Goto package.json and under dependencies add this line at the end "serve": "^14.0.0"
 
 Now build the image and run the conatiner 
@@ -217,6 +251,18 @@ CONTAINER ID   IMAGE                     COMMAND                  CREATED       
 
 
 **🚀🚀🚀 Boom You application is Running with Multi Stage Docker file 🚀🚀🚀**
+
+
+Now Since we have the working image we can push it into our Dockerhub Repository and use it whwnever we need. Below are the Commands
+
+docker tag online_shop-mini:latest 2651997/online_shop-mini:latest
+
+docker login
+
+docker push 2651997/online_shop-mini:latest
+
+![image](https://github.com/user-attachments/assets/e5cbaf9a-c5f6-42bf-bf42-9d62c8fea3b3)
+
 
 
 Thank You!!!
