@@ -110,12 +110,17 @@ CMD ["npm","run","dev","--","--host","0.0.0.0","--port","3000"]
 
 9️⃣ Your docker image will be created. To check run -> docker iamges
 
+
 ubuntu@ip-172-31-92-158:~/Hackathon/online_shop$ docker images
+
 REPOSITORY    TAG         IMAGE ID       CREATED          SIZE
 online_shop   latest      e3e3636ddaa6   11 minutes ago   241MB
 node          18-alpine   70649fe1a0d7   9 hours ago      127MB
 
-🔟 Now run the conatiner with this command -> docker run -p 3000:3000 online_shop:latest (Use -d if you want to run it in detached mode i.e docker run -d -p 3000:3000 online_shop:latest )
+
+🔟 Now run the conatiner with this command -> docker run -p 3000:3000 online_shop:latest 
+
+(Use -d if you want to run it in detached mode i.e docker run -d -p 3000:3000 online_shop:latest )
 
 Open the port 3000 on your AWS Security Group -> Edit the inbound rules and add the 3000 port. Now Copy the public i/p and try accesing your application on port 3000
 
@@ -129,13 +134,16 @@ PFB -
 when alpine image was used
 
 ubuntu@ip-172-31-92-158:~/Hackathon/online_shop$ docker images
+
 REPOSITORY    TAG         IMAGE ID       CREATED          SIZE
 **online_shop**   latest      e3e3636ddaa6   11 minutes ago   **241MB**
 node          **18-alpine**   70649fe1a0d7   9 hours ago      **127MB**
 
 
 When slim iamge was used
+
 ubuntu@ip-172-31-92-158:~$ docker images
+
 REPOSITORY    TAG         IMAGE ID       CREATED              SIZE
 **online_shop**   latest      de7d09bf36f5   About a minute ago   **306MB**
 <none>        <none>      e3e3636ddaa6   15 minutes ago       241MB
