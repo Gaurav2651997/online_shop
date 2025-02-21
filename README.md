@@ -216,7 +216,7 @@ CONTAINER ID   IMAGE                     COMMAND                  CREATED       
 554cd55b4e49   **online_shop-mini:latest**   "/nodejs/bin/node ./…"   7 minutes ago   Up 7 minutes   0.0.0.0:3000->5173/tcp, :::3000->5173/tcp   bold_vaughan
 
 
-**🚀🚀🚀 Boom You application is Running 🚀🚀🚀**
+**🚀🚀🚀 Boom You application is Running with Multi Stage Docker file 🚀🚀🚀**
 
 
 Thank You!!!
